@@ -1,0 +1,170 @@
+
+
+<html>
+<head>
+{% load staticfiles %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+function myFunction() {
+    var pass1 = document.getElementById("pass").value;
+    var pass2 = document.getElementById("cpass").value;
+    var ok = true;
+    if (pass1 != pass2) {
+        //alert("Passwords Do not match");
+        document.getElementById("pass").style.borderColor = "#E34234";
+        document.getElementById("cpass").style.borderColor = "#E34234";
+        alert("Please Check Passwords!!!");
+        ok = false;
+    }
+    else {
+        alert("User Added!");
+    }
+    return ok;
+}
+
+
+function check_login(element) {
+    $("#login_ok").hide();
+    $("#login_not").hide();
+    login = $(element).val();
+    if (login == "") {
+        return;
+    }
+    $.ajax({
+        url : $(element).attr("data-url"),
+        data : {
+            "csrfmiddlewaretoken" : $(element).siblings("input[name='csrfmiddlewaretoken']" ).val(),
+            "login":login
+        },
+        method: "POST",
+        dataType : "json",
+        success : function (returned_data) {            
+            if (returned_data.is_success) {
+                $("#login_ok").show();
+            } else {
+                $("#login_not").show();
+            }
+        }
+    });
+}
+
+</script>
+
+  <style>
+
+form {
+    border: 3px solid #f1f1f1;
+}
+
+input[type=text], input[type=date],input[type=password],select, .container2{
+    width: 100%;
+    height: 40px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+label{
+  font-size: 20px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 20px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+
+.container {
+    padding: 16px;
+}
+</style>
+</head>
+
+<!--
+
+
+{% if name %}
+<script>
+  window.location='{% url "login" %}'
+</script>
+{% endif %}
+
+
+
+-->
+
+
+<body>
+{% include 'navigation.html' %}
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<form action="{% url 'register_redirect' %}" method='post' onsubmit="return myFunction()">
+  {% csrf_token %}
+<div class="container">
+<h2>User Registration</h2>
+
+Name: <input type='text' name="name" required>
+Username : <div> <input type="text" class="form-control input-sm" name="login" id="login" placeholder="Login or Username" required="True" onkeyup="check_login(this);return false;" data-url="{% url 'check_login' %}"/>
+   {% csrf_token %}
+
+<div class="col-md-6 col-sm-6" style="color:red;display:none;margin-top: 4px;"  id="login_not">
+    <span class="glyphicon glyphicon-remove"></span> Username already taken.
+</div><br>
+<div class="col-md-6 col-sm-6" style="color: green;display: none;margin-top: 4px;" id="login_ok">
+    <span class="glyphicon glyphicon-ok"></span> Username available.
+</div><br>
+</div><br>
+
+Postal Address: <input type="text" name="address1" required>
+
+Personal Address: <input type="text" name="address2" required>
+gender: 
+<div class="container2">
+  <input type="radio" name="gender" value="male">Male</input>
+  <input type="radio" name="gender" value="Female">Female</input>
+</div>
+City:<select name="city">
+  <option value="-1" selected>select..</option>
+  <option value="New Delhi">NEW DELHI</option>
+  <option value="Mumbai">MUMBAI</option>
+  <option value="Goa">GOA</option>
+  <option value="Patna">PATNA</option>
+  </select>
+
+
+State: <select Name="state">
+  <option value="-1" selected>select..</option>
+  <option value="New Delhi">NEW DELHI</option>
+  <option value="Mumbai">MUMBAI</option>
+  <option value="Goa">GOA</option>
+  <option value="Bihar">BIHAR</option>
+  </select>
+
+PinCode:<input type="text" name="pincode"  required>
+Email:<input type="text" name="email"  required>
+DOB:<input type="date" name="dob" required>
+Contact: <input type="text" name="contact" required>
+Password: <input type="password" name="password" id="pass" required>
+Confirm Password: <input type="password" id="cpass" required>
+  <button type="submit"> Submit</button>
+</div>
+  </form>
+  </body>
+  </html>
+
+

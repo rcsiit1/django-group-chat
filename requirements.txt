@@ -1,0 +1,6 @@
+Django==2.2.1
+mysql-connector-python==8.0.16
+protobuf==3.7.1
+pytz==2019.1
+six==1.12.0
+sqlparse==0.3.0

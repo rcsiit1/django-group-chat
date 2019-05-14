@@ -1,0 +1,51 @@
+<html>
+<head>
+	{% load staticfiles %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+function check_login(element) {
+    $("#login_ok").hide();
+    $("#login_not").hide();
+    login = $(element).val();
+    if (login == "") {
+        return;
+    }
+    $.ajax({
+        url : $(element).attr("data-url"),
+        data : {
+            "csrfmiddlewaretoken" : $(element).siblings("input[name='csrfmiddlewaretoken']" ).val(),
+            "login":login
+        },
+        method: "POST",
+        dataType : "json",
+        success : function (returned_data) {            
+            if (returned_data.is_success) {
+                $("#login_ok").show();
+            } else {
+                $("#login_not").show();
+            }
+        }
+    });
+}
+</script>
+</head>
+<body>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+<label for="login" class="col-md-2 control-label">Login</label>
+<div class="col-md-4">
+    <input type="text" class="form-control input-sm" name="login" id="login" placeholder="Login or Username" required="True" onkeyup="check_login(this);return false;" data-url="{% url 'check_login' %}"/>
+    {% csrf_token %}
+</div>
+<div class="col-md-6 col-sm-6" style="color:red;display:none;margin-top: 4px;"  id="login_not">
+    <span class="glyphicon glyphicon-remove"></span> Username already taken.
+</div>
+<div class="col-md-6 col-sm-6" style="color: green;display: none;margin-top: 4px;" id="login_ok">
+    <span class="glyphicon glyphicon-ok"></span> Username available.
+</div>
+</body>
+</html>

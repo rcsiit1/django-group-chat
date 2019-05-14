@@ -1,0 +1,15 @@
+<html>
+<head>
+	<title> Login </title>
+</head>
+<body>
+	{% include 'navigation.html' %}
+<div class="alert alert-success"><center><h2><strong>Welcome, {{ request.session.user }}({{ request.session.id }} )</strong></h2></center></div>
+
+<form action = ' {% url 'logout' %} '>
+	<div >
+		<center><input type='submit' class="btn-lg btn-success" value="Logout"><center>
+	</div>
+</form>
+</body>
+</html>

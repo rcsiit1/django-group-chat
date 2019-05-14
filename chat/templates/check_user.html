@@ -1,0 +1,7 @@
+{% include 'navigation.html' %}
+
+{% if request.session.user %}
+<div class="alert alert-success"><center><h2><strong>Welcome, {{ request.session.user }}</strong></h2></center></div>
+{% else %}
+	You may Login please.
+{% endif %}

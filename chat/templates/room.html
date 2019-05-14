@@ -1,0 +1,50 @@
+
+{% include 'navigation.html' %}
+
+
+<form action="{% url 'room' %}" method='post'>
+    {% csrf_token %}
+  <div class="container">
+  <h2>Create Room</h2>
+    <input type='text' name="room" placeholder="Room Name" required>
+    <input type="submit" class="button" value='Create Room'>
+  </div>
+  </form>
+<hr>
+  <h2 class="text-center"> Select Room</h2>
+<div class="form-group" style="margin-left: 30%; margin-right: 30%">
+        <form action="{% url 'selectRoom' %}" method="POST">
+                {% csrf_token %}
+            <select class="form-control" name = 'room'>
+                <option>--Select--</option>
+            {% for rooms in room %}
+                <option value="{{rooms.id}},{{rooms.name}}">{{rooms.name}}</option>
+            {% endfor %}
+            </select>
+            <input type="submit" value="start chat" class="button">
+        </form>
+    </div>
+    
+
+  <style>
+    input[type=text], input[type=date],input[type=password],select, .container2{
+        width: 100%;
+        height: 40px;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        font-size: 18px;
+    }
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        font-size: 20px;
+    }
+  </style>

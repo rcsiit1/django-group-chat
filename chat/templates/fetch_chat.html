@@ -1,0 +1,22 @@
+
+<div class="container">
+	<div class='row alert-success'>
+{% for data in data1 reversed%}
+
+
+{% if data.uid == request.session.id%}
+	<div class='row alert-success'>
+	
+		<div class="col-md-1"> </div>
+  		<div class="col-md-11 text-right"><label><pre>{{data.chat}}</pre></label></div>
+  </div>
+	{% else %}
+
+	<div class='row alert-success'>
+    	<div class="col-md-10"><label><pre>{{data.chat}}</pre></label></div>
+    	<div class="col-md-2"></div>
+	</div>
+	<hr>
+	{% endif %}
+{% endfor %}
+
