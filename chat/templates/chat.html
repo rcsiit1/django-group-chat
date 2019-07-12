@@ -18,25 +18,10 @@ function ()
 {
 $('#load_tweets').load('{% url "fetch" %}').fadeIn("slow");
 }, 90); 
-
-
-$(document).on('submit','chat_form',function(e){
-	e.preventDefault();
-
-	$.ajax({
-		url:'{% url "chat_sender" %}',
-		data:{
-			chat:$('#chat').val(),
-		},
-		success:function(){
-				alert("Send.");
-		}
-	});
-});
-
+console.log('this is my text', auto_refresh);
 </script>
 <h3 class="text-center"> <kbd>Room: {{request.session.roomName}}</kbd></h3>
-<form action='{% url "chat_sender" %}' class="form-group"> 
+<form  class="form-group"> 
 <!-- <form id='chat_form'>-->
 	<div class="container">
 	<div class='row'>
@@ -46,7 +31,23 @@ $(document).on('submit','chat_form',function(e){
 </div>
 </form>
 <div id="load_tweets"> </div>
+<script>
+$(document).on('click','#send',function(e){
+	e.preventDefault()
+	$.ajax({
+		url:'{% url "chat_sender" %}',
+		data:{
+			chat:$('#chat').val(),
+		},
+		success:function(resp){
+			console.log(resp);
+			console.log('inside response')
+				//window.location="{% url 'chat' %}"
+		}
+	});
+});
 
+</script>
 
 {% else %}
 <script type="text/javascript">

@@ -132,12 +132,13 @@ def chat(request):
 
 def chat_sender(request):
 	obj_chat = Chat()
+	print('this is the message--->',request.GET['chat'])
 	chat = request.session['user']+'\n---------------------\n'+request.GET['chat']
 	obj_chat.uid = request.session['id']
 	obj_chat.chat = chat
 	obj_chat.roomid = request.session['roomId']
 	obj_chat.save()
-	return render(request,'chat_sender.html')
+	return JsonResponse({'response': True}, safe= False)
 
 def fetch(request):
 	
