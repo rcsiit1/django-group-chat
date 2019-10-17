@@ -26,5 +26,3 @@ This project is a small demonstration of a chat app using django.The concept of 
     python manage.py runserver
     ```
 - Hit the url `http://localhost:8000/`
-
-If you open the dev tools in browser, you would be able to see the properties of the image clicked in the console log.
