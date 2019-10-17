@@ -2,7 +2,6 @@ from django.urls import path, include
 from . import views
 
 urlpatterns=[
-    
     path('save/',views.save,name='save'),
 	path('login/',views.login,name='login'),
 	path('register_redirect/',views.register_redirect,name='register_redirect'),
@@ -15,12 +14,5 @@ urlpatterns=[
 	path('chat_sender/',views.chat_sender,name='chat_sender'),
 	path('fetch/',views.fetch,name='fetch'),
 	path('room/',views.room,name='room'),
-	path('selectRoom/',views.selectRoom,name='selectRoom'),
-	
-
-	
-	
-	#temp testing
-	path('test/',views.test,name='test'),
-	path('check_login/',views.check_login,name='check_login'),
+	path('selectRoom/',views.selectRoom,name='selectRoom')
 ]

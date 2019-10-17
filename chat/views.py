@@ -6,13 +6,12 @@ import logging
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 
-# Create your views here.
+
 def login(request):
 	return render(request,'login.html')
 
 def register_redirect(request):
 	u = ud()
-	print('values ---->',request.POST['name'],request.POST['login'],request.POST['address1'],request.POST['address2'],request.POST['gender'],request.POST['city'],request.POST['state'],request.POST['pincode'],request.POST['email'],request.POST['dob'],request.POST['contact'],request.POST['password'])
 	u.name = request.POST['name']
 	u.username = request.POST['login']
 	u.address1 = request.POST['address1']
@@ -31,7 +30,7 @@ def register_redirect(request):
 
 def register(request):
 	context={}
-	'''if 'name' in request.POST:
+	if 'name' in request.POST:
 		context = {
 		'name': request.POST['name'],
 		'username':request.POST['username'],
@@ -45,7 +44,7 @@ def register(request):
 		'dob':request.POST['dob'],
 		'contact':request.POST['contact'],
 		'password':request.POST['password']
-		}'''
+		}
 	return render(request,'register.html',context)
 
 
@@ -109,8 +108,6 @@ def after_login(request):
 		'username': "Not Found."
 		}
 		file = "login.html"
-
-
 	return render(request,file,context)
 
 def check_user(request):
